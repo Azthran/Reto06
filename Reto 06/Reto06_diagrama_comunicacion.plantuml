@@ -1,0 +1,34 @@
+@startuml reto06
+skinparam noteBackgroundColor transparent
+skinparam noteBorderColor transparent
+hide members
+
+object "Registro" as objeto1{
+    -catalogo: CatalogoProductos
+    - venta: Venta
+
+    + Registro(cp: CatalogoProductos)
+    + finalizarVenta()
+    + crearNuevaVenta()
+    + introducirArticulo(id: ArticuloID, cant: int) 
+}
+
+
+object "venta" as objeto2{
+    -FechaHora : Date
+    -lineasVenta: List
+
+    +Venta()
+    +crearLineaVenta(espec: EspecificacionProducto, cant: int)
+}
+
+objeto1 -d--> objeto2
+note on link
+    1: Finalizar Venta
+end note    
+
+objeto2 -d--> objeto1
+note on link
+    2: Registrar venta
+end note
+@enduml

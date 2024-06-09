@@ -1,0 +1,28 @@
+@startuml reto062
+state opcion1 <<choice>>
+state opcion2 <<choice>>
+state unificar <<join>>
+state extender <<fork>>
+state unificar2 <<join>>
+
+[*] --> Disponible : Producto
+Disponible --> Reservado: Producto Encargado
+Reservado --> opcion1: ¿Pagar?
+opcion1 --> Disponible : NO
+opcion1 --> Pagado : SI
+Pagado --> Verificando_Pedido
+Verificando_Pedido --> Pedido_En_Espera
+Pedido_En_Espera --> Obtener_Pedido
+Obtener_Pedido --> opcion2 : ¿Urgente?
+opcion2 --> Pedido_Urgente: Si
+opcion2--> Pedido_Comun: No
+Pedido_Urgente --> unificar
+Pedido_Comun --> unificar
+unificar --> Pedido_Realizado
+Pedido_Realizado --> extender
+extender --> Añadir_Cliente_Lista_Satisfecho
+extender --> Enviar_Recibo
+Añadir_Cliente_Lista_Satisfecho --> unificar2
+Enviar_Recibo --> unificar2
+unificar2 --> [*]
+@enduml
